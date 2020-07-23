@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Neighborhoods } from './components/Neighborhoods';
+// import { Neighborhoods } from './components/Neighborhoods';
 import { Stores } from './components/Stores';
 
 const App = config => {
