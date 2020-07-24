@@ -102,7 +102,7 @@ a:hover {
   background: none;
 }
 ::-webkit-scrollbar-thumb {
-  background: #00853e;
+  background: #444;
   border-radius: 0;
 }
 
@@ -118,6 +118,7 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  pointer-events: auto;
 }
 
 .clearfix {

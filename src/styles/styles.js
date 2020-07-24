@@ -6,7 +6,8 @@ export const MapBoxMap = styled.div`
   height: 100vh;
   width: 100vw;
   position: fixed;
-  z-index: -5;
+  // z-index: -5;
+  pointer-events: none;
 `;
 
 export const Header = styled.header`
@@ -14,6 +15,8 @@ export const Header = styled.header`
   width: 90vw;
   padding: 2vh;
   text-align: center;
+  position: relative;
+  z-index: 100;
 `;
 
 export const Footer = styled.footer`

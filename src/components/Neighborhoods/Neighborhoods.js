@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { jsx } from '@emotion/core';
 import mapboxgl from 'mapbox-gl';
 import scrollama from 'scrollama';
@@ -16,6 +16,7 @@ import {
   Step,
   // Sidebar,
 } from '../../styles';
+import { Markers } from '../Markers';
 
 const layerTypes = {
   fill: ['fill-opacity'],
@@ -51,9 +52,17 @@ const Neighborhoods = config => {
   const [{ currentChapter }, setCurrentChapter] = useState({
     currentChapter: config.chapters[0].location,
   });
+  const [map, setMap] = useState();
+  const [showMarkers, setShowMarkers] = useState(false);
+  const [hideMarkers, setHideMarkers] = useState(false);
   const mapContainer = useRef();
   const theme = config.theme;
   const currentChapterID = currentChapter.id;
+
+  const handleClick = useCallback(() => {
+    setShowMarkers(!showMarkers);
+    setHideMarkers(false);
+  }, [showMarkers]);
 
   useEffect(() => {
     if (mapContainer?.current) {
@@ -144,6 +153,8 @@ const Neighborhoods = config => {
             const chapter = config.chapters.find(
               chap => chap.id === response.element.id,
             );
+            // debugger;
+            setHideMarkers(true);
             setCurrentChapter({ currentChapter: chapter });
             map.flyTo(chapter.location);
             if (config.showMarkers) {
@@ -162,7 +173,7 @@ const Neighborhoods = config => {
             }
           });
       });
-
+      setMap(map);
       window.addEventListener('resize', scroller.resize);
       return () => window.removeEventListener('resize', scroller.resize);
     }
@@ -171,7 +182,15 @@ const Neighborhoods = config => {
 
   return (
     <div>
-      <MapBoxMap ref={mapContainer} />
+      <MapBoxMap ref={mapContainer}>
+        {!hideMarkers && (
+          <Markers
+            map={map}
+            currentChapterID={currentChapterID}
+            showMarkers={showMarkers}
+          />
+        )}
+      </MapBoxMap>
       {config && (
         <div id="story">
           {config?.title && (
@@ -188,6 +207,7 @@ const Neighborhoods = config => {
                 theme={theme}
                 {...chapter}
                 currentChapterID={currentChapterID}
+                onClick={handleClick}
               />
             ))}
           </Features>
@@ -212,6 +232,7 @@ const Chapter = ({
   image,
   description,
   currentChapterID,
+  onClick,
 }) => {
   const classList = id === currentChapterID ? 'active' : 'step';
   return (
@@ -221,6 +242,7 @@ const Chapter = ({
         {image && <img src={image} alt={title}></img>}
         {description && <p>{description}</p>}
       </div>
+      <button onClick={onClick}>Show Markers</button>
     </Step>
   );
 };

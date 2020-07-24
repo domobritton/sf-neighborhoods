@@ -66,13 +66,6 @@ const Stores = () => {
         scrollZoom: false,
       });
       setMap(map);
-
-      map.on('load', () => {
-        map.addSource('places', {
-          type: 'geojson',
-          data: storeConfig,
-        });
-      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
