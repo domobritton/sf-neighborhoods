@@ -6,8 +6,37 @@ export const MapBoxMap = styled.div`
   height: 100vh;
   width: 100vw;
   position: fixed;
-  // z-index: -5;
   pointer-events: none;
+
+  .mapboxgl-popup {
+    padding-bottom: 50px;s
+  }
+
+  .mapboxgl-popup-close-button {
+    display: none;
+  }
+
+  .mapboxgl-popup-content {
+    padding: 0;
+    width: 180px;
+    border-radius: 0;
+
+    h3 {
+      background: #444;
+      color: #fff;
+      margin: 0;
+      display: block;
+      padding: 10px;
+      font-weight: 700;
+    }
+
+    h4 {
+      margin: 0;
+      display: block;
+      padding: 10px;
+      font-weight: 400;
+    }
+  }
 `;
 
 export const Header = styled.header`
@@ -90,4 +119,23 @@ export const Sidebar = styled.nav`
   border-top-left-radius: 15px;
   z-index: 100;
   transition: all 0.15s ease-out 0;
+`;
+
+export const Marker = styled.div`
+  border: none;
+  cursor: pointer;
+  height: 56px;
+  width: 56px;
+  /* background-image: url(marker.png); */
+  background-color: rgba(0, 0, 0, 0);
+  font-size: 22px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
 `;

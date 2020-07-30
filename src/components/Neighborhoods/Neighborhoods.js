@@ -153,7 +153,7 @@ const Neighborhoods = config => {
             const chapter = config.chapters.find(
               chap => chap.id === response.element.id,
             );
-            // debugger;
+
             setHideMarkers(true);
             setCurrentChapter({ currentChapter: chapter });
             map.flyTo(chapter.location);

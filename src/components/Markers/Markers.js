@@ -1,8 +1,6 @@
-/** @jsx jsx */
-import { useEffect } from 'react';
-import '../../styles/app.css';
-import { jsx } from '@emotion/core';
+import React, { useEffect } from 'react';
 import mapboxgl from 'mapbox-gl';
+import { Marker } from '../../styles';
 
 import { restConfig } from '../../mapbox/restConfig';
 
@@ -22,10 +20,8 @@ const Markers = ({ map, currentChapterID, showMarkers }) => {
     new mapboxgl.Popup({ closeOnClick: false })
       .setLngLat(currentFeature.geometry.coordinates)
       .setHTML(
-        '<h3>Sweetgreen</h3>' +
-          '<h4>' +
-          currentFeature.properties.address +
-          '</h4>',
+        `<h3>${currentFeature.properties.name}</h3>
+          <h4>${currentFeature.properties.address}</h4>`,
       )
       .addTo(map);
   };
@@ -54,7 +50,7 @@ const Markers = ({ map, currentChapterID, showMarkers }) => {
     var popUps = document.getElementsByClassName('mapboxgl-popup');
     if (popUps[0]) popUps[0].remove();
     const markers = document.getElementsByClassName('marker');
-    // debugger;
+
     if (!showMarkers && markers) {
       for (let i = 0; i < markers.length; i++) {
         markers[i].remove();
@@ -67,7 +63,7 @@ const Markers = ({ map, currentChapterID, showMarkers }) => {
         renderConfig.features.map((feature, idx) => {
           const id = feature.properties.id;
           return (
-            <div
+            <Marker
               ref={markerPlacement}
               data-lng={feature.geometry.coordinates[0]}
               data-lat={feature.geometry.coordinates[1]}
@@ -76,7 +72,7 @@ const Markers = ({ map, currentChapterID, showMarkers }) => {
               className="marker"
               onClick={() => handleClick(id)}>
               {id}
-            </div>
+            </Marker>
           );
         })}
     </div>

@@ -19,4 +19,23 @@ export const restConfig = {
       },
     ],
   },
+  civicCenter: {
+    features: [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [-122.416520, 37.780860],
+        },
+        properties: {
+          id: 0,
+          name: `Soluna`,
+          phoneFormatted: '415.621.2200',
+          phone: '4156212200',
+          address: '272 McAllister St',
+          city: 'San Francisco',
+        },
+      }
+    ]
+  }
 };
